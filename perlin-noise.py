@@ -40,8 +40,8 @@ amplitude1 = np.sin(FREQUENCY)
 
 cos_amp = np.cos(FREQUENCY)
 
-plot(FREQUENCY, amplitude1)
-plot(FREQUENCY, cos_amp)
+# plot(FREQUENCY, amplitude1)
+# plot(FREQUENCY, cos_amp)
 
 def power_vals(x: list):
     vals = [2**val for val in x]
@@ -80,7 +80,7 @@ plot(FREQUENCY, noisier)
 # https://stackoverflow.com/questions/60350598/perlin-noise-in-pythons-noise-library
 import noise
 import numpy as np
-# from PIL import Image
+from PIL import Image
 
 shape = (1024,1024)
 scale = .5
@@ -97,15 +97,15 @@ y_idx = np.linspace(0, 1, shape[1])
 world_x, world_y = np.meshgrid(x_idx, y_idx)
 
 # apply perlin noise, instead of np.vectorize, consider using itertools.starmap()
-# world = np.vectorize(noise.pnoise2)(world_x/scale,
-#                         world_y/scale,
-#                         octaves=octaves,
-#                         persistence=persistence,
-#                         lacunarity=lacunarity,
-#                         repeatx=1024,
-#                         repeaty=1024,
-#                         base=seed)
+world = np.vectorize(noise.pnoise2)(world_x/scale,
+                        world_y/scale,
+                        octaves=octaves,
+                        persistence=persistence,
+                        lacunarity=lacunarity,
+                        repeatx=1024,
+                        repeaty=1024,
+                        base=seed)
 
 # # here was the error: one needs to normalize the image first. Could be done without copying the array, though
-# img = np.floor((world + .5) * 255).astype(np.uint8) # <- Normalize world first
-# Image.fromarray(img, mode='L').show()
+img = np.floor((world + .5) * 255).astype(np.uint8) # <- Normalize world first
+Image.fromarray(img, mode='L').show()
